@@ -1,0 +1,1 @@
+ALTER TYPE plan_tier ADD VALUE IF NOT EXISTS 'pro_lifetime';
