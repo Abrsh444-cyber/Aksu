@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-         node-version: '20'
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install
@@ -38,3 +38,21 @@ jobs:
           overwrite: false
           include-hidden-files: false
           archive: true
+
+      - name: Run Datadog Synthetics Tests
+        uses: DataDog/datadog-synthetics-ci-github-action@v1
+        with:
+          datadog_api_key: ${{ secrets.DATADOG_API_KEY }}
+          datadog_app_key: ${{ secrets.DATADOG_APP_KEY }}
+          public_ids: ${{ secrets.DATADOG_SYNTHETICS_PUBLIC_IDS }}
+        env:
+          DATADOG_SITE: datadoghq.com
+
+      - name: Upload Datadog Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: datadog-test-results
+          path: ./datadog-ci-report.json
+          if-no-files-found: warn
+          retention-days: 30
