@@ -24,11 +24,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-     "scripts": {
-  "test": "vitest",  // or your preferred test runner
-  "dev": "vite dev",
-  // ... rest of scripts
-}
+      - name: Build project
+        run: npm run build
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
@@ -41,4 +38,3 @@ jobs:
           overwrite: false
           include-hidden-files: false
           archive: true
-          
