@@ -1,4 +1,4 @@
-name: Datadog name: Datadog Synthetics
+name: Datadog Synthetics
 
 on:
   push:
