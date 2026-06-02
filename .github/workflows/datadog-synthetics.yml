@@ -1,4 +1,4 @@
-name: Datadog Synthetics
+name: Datadog name: Datadog Synthetics
 
 on:
   push:
@@ -40,13 +40,12 @@ jobs:
           archive: true
 
       - name: Run Datadog Synthetics Tests
-        uses: DataDog/datadog-synthetics-ci-github-action@v1
-        with:
-          datadog_api_key: ${{ secrets.DATADOG_API_KEY }}
-          datadog_app_key: ${{ secrets.DATADOG_APP_KEY }}
-          public_ids: ${{ secrets.DATADOG_SYNTHETICS_PUBLIC_IDS }}
+        run: npx @datadog/datadog-ci synthetics run-tests
         env:
+          DATADOG_API_KEY: ${{ secrets.DATADOG_API_KEY }}
+          DATADOG_APP_KEY: ${{ secrets.DATADOG_APP_KEY }}
           DATADOG_SITE: datadoghq.com
+          PUBLIC_IDS: ${{ secrets.DATADOG_SYNTHETICS_PUBLIC_IDS }}
 
       - name: Upload Datadog Test Results
         if: always()
